@@ -22,19 +22,47 @@
 # @param {ListNode} l2
 # @return {ListNode}
 
+# // def add_two_numbers(l1, l2)
+# //   first = []
+# //   second = []
+# //   while true
+# //     first.unshift(l1.val)
+# //     break if l1.next == nil
+# //     l1 = l1.next
+# //   end
+# //   while true
+# //     second.unshift(l2.val)
+# //     break if l2.next == nil
+# //     l2 = l2.next
+# //   end
+# //   total = first.join("").to_i + second.join("").to_i
+# //   total.to_s.split("").reverse.map(&:to_i)
+# // end
+
 def add_two_numbers(l1, l2)
-  first = []
-  second = []
+  result = []
+  carry = 0
   while true
-    first.unshift(l1.val)
-    break if l1.next == nil
-    l1 = l1.next
+    if l1.nil? || l1.val == nil
+      p = 0
+    else
+      p = l1.val
+    end
+    if l2.nil? || l2.val == nil
+      q = 0
+    else
+      q = l2.val
+    end
+    total = p + q + carry
+    num = total % 10
+    carry = total / 10
+    result.push(num)
+    break if (l1.nil? || l1.next == nil) && (l2.nil? || l2.next == nil)
+    l1 = l1.next unless l1.nil?
+    l2 = l2.next unless l2.nil?
   end
-  while true
-    second.unshift(l2.val)
-    break if l2.next == nil
-    l2 = l2.next
+  if carry > 0
+    result.push(carry)
   end
-  total = first.join("").to_i + second.join("").to_i
-  total.to_s.split("").reverse.map(&:to_i)
+  result
 end
