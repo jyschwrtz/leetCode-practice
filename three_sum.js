@@ -23,6 +23,9 @@ var threeSum = function(nums) {
             } else if (total > 0) {
                 rightIdx -= 1;
             }
+            while (nums[rightIdx] === nums[rightIdx + 1]) {
+              rightIdx -= 1;
+            }
         }
 
     }
