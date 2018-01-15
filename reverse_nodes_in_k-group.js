@@ -14,7 +14,9 @@
      let start = head;
      let current = head;
      let result = [];
-     if (head === undefined) { return result; }
+     if (head === null) {
+         return result;
+     }
      if (k < 2) {
          while (current.next !== null) {
              result.push(current.val);
@@ -24,29 +26,41 @@
      } else {
          let i = 0;
          let j = 0;
-         while (current.next !== null) {
-           let currentArr = [];
-           start = current.next;
-           for (i = j; i < j + k; i++) {
-             if (current.next === null) {
-               currentArr.unshift(start.val);
-               currentArr.push(current.val);
-               break;
-             }
+         if (current.next === null) {
+             result.push(current.val);
+         } else {
+             while (current.next !== null) {
+                 let currentArr = [];
+                 for (i = j; i < (j + k); i++) {
 
-             if (i === j + k - 1) {
-               currentArr.unshift(current.val);
-               currentArr.push(start.val);
-             } else {
-               currentArr.push(current.val);
+                      if (i === j + k - 1) {
+                          currentArr.unshift(current.val);
+                          currentArr.push(start.val);
+                      } else if (current !== start) {
+                          currentArr.push(current.val);
+                      }
+
+                      if (current.next !== null) {
+                        current = current.next;
+                      } else if ( i % k !== 0){
+                        currentArr = [];
+                          for (let n = j; n <= i; n++) {
+                            currentArr.push(start.val);
+                            start = start.next;
+                            console.log(currentArr);
+                          }
+                          break;
+                      }
+                      console.log(currentArr);
+
+                 }
+                 if (current.next !== null) {
+                      start = current;
+                 }
+                 result = result.concat(currentArr);
+                 j = i + 1;
              }
-             current = current.next;
-           }
-           result = result.concat(currentArr);
-           j = i + 1;
          }
-
-         result.push(current.val);
      }
 
      return result;
