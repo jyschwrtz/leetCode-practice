@@ -6,8 +6,22 @@
 var selfDividingNumbers = function(left, right) {
   let results = [];
   for (let i = left; i <= right; i++) {
-
+    if (i < 10) {
+      results.push(i);
+    } else {
+      let arr = separate(i);
+      let check = true;
+      arr.forEach( num => {
+        if (!divisible(num, i)) {
+          check = false;
+        }
+      });
+      if (check) {
+        results.push(i);
+      }
+    }
   }
+  return results;
 
 };
 
@@ -26,8 +40,6 @@ const separate = (num) => {
   if (num < 10) {
     return [num];
   } else {
-    return separate(num / 10).push(num % 10);
+    return separate(Math.floor(num / 10)).concat(num % 10);
   }
 };
-
-console.log(separate(5245));
