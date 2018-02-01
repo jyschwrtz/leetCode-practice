@@ -2,21 +2,25 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-// var PredictTheWinner = function(nums, start = 0, end = nums.length - 1, turn = 1) {
-//   if (end === start) {
-//     return nums[start] * turn;
-//   }
-//   let firstNum = turn * nums[start] + (PredictTheWinner(nums, start + 1, end, -turn));
-//   let secondNum = turn * nums[end] + (PredictTheWinner(nums, start, end - 1, -turn));
-//   let result = turn * firstNum > turn * secondNum ? firstNum : secondNum;
-//   console.log("RESULT:", result);
-//   if (start === 0 && end === nums.length - 1) {
-//     return result >= 0;
-//   } else {
-//     return result;
-//   }
-// };
 
+// RECURSION
+var PredictTheWinner = function(nums, start = 0, end = nums.length - 1, turn = 1) {
+  if (end === start) {
+    return nums[start] * turn;
+  }
+  let firstNum = turn * nums[start] + (PredictTheWinner(nums, start + 1, end, -turn));
+  let secondNum = turn * nums[end] + (PredictTheWinner(nums, start, end - 1, -turn));
+  let result = turn * firstNum > turn * secondNum ? firstNum : secondNum;
+  console.log("RESULT:", result);
+  if (start === 0 && end === nums.length - 1) {
+    return result >= 0;
+  } else {
+    return result;
+  }
+};
+
+
+// MEMOIZATION
 const PredictTheWinner = (nums) => {
   let memo = new Array(nums.length);
   for (let i = 0; i < memo.length; i++) {
@@ -43,6 +47,11 @@ const winner = (nums, s, e, memo) => {
   return left > right ? left : right;
 };
 
+// DYNAMIC PROGRAMMING
+// const PredictTheWinner = (nums) => {
+//
+// };
+
 // console.log(PredictTheWinner([1, 5, 8, 4]), 'true');
-console.log(PredictTheWinner([1, 5, 2]), 'false');
-console.log(PredictTheWinner([1, 5, 233, 7]), 'true');
+// console.log(PredictTheWinner([1, 5, 2]), 'false');
+// console.log(PredictTheWinner([1, 5, 233, 7]), 'true');
